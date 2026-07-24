@@ -81,13 +81,46 @@ const worker = new Worker(new URL("./worker.js", import.meta.url), {
   type: "module",
 });
 
+let modelReady = false;
+
+// The model file is several MB; on a slow connection loading genuinely
+// takes a while. These just keep you informed instead of leaving you
+// staring at a status that never changes.
+const slowLoadTimer = setTimeout(() => {
+  if (!modelReady) {
+    statusEl.textContent = "still loading (large model file — hang tight)";
+  }
+}, 8000);
+const stuckLoadTimer = setTimeout(() => {
+  if (!modelReady) {
+    statusEl.textContent =
+      "taking unusually long — check your connection, or open the console (F12) for errors";
+  }
+}, 20000);
+
+worker.onerror = (err) => {
+  clearTimeout(slowLoadTimer);
+  clearTimeout(stuckLoadTimer);
+  statusEl.textContent = `worker crashed: ${err.message || "see console (F12)"}`;
+};
+
 worker.onmessage = (event) => {
   const { type } = event.data;
 
   if (type === "ready") {
-    statusEl.textContent = "model ready";
+    modelReady = true;
+    clearTimeout(slowLoadTimer);
+    clearTimeout(stuckLoadTimer);
+    statusEl.textContent = `model ready (${event.data.delegate})`;
     startBtn.disabled = false;
     startBtn.textContent = "start camera";
+    return;
+  }
+
+  if (type === "error") {
+    clearTimeout(slowLoadTimer);
+    clearTimeout(stuckLoadTimer);
+    statusEl.textContent = `model failed to load: ${event.data.message}`;
     return;
   }
 
