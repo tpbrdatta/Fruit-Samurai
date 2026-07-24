@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hand Slicer — Milestone 01: Tracking Calibration</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="panel">
+    <header class="panel__header">
+      <p class="eyebrow">HAND-SLICER // BUILD LOG</p>
+      <h1>Milestone&nbsp;01 — Tracking Calibration</h1>
+      <p class="hint">
+        No game logic yet. This screen exists to answer one question: is the
+        detection clean enough to build a blade on top of? Check different
+        distances and lighting before moving on.
+      </p>
+    </header>
+
+    <section class="stage" aria-label="Camera feed with hand landmark overlay">
+      <video id="webcam" autoplay playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div class="reticle" aria-hidden="true"></div>
+      <div class="scanline" aria-hidden="true"></div>
+    </section>
+
+    <section class="readout" aria-label="Diagnostics">
+      <div class="readout__item">
+        <span class="readout__label">status</span>
+        <span class="readout__value" id="status">idle</span>
+      </div>
+      <div class="readout__item">
+        <span class="readout__label">fps</span>
+        <span class="readout__value" id="fps">--</span>
+      </div>
+      <div class="readout__item">
+        <span class="readout__label">hands</span>
+        <span class="readout__value" id="handsCount">0</span>
+      </div>
+      <div class="readout__item">
+        <span class="readout__label">latency</span>
+        <span class="readout__value" id="latency">--</span>
+      </div>
+    </section>
+
+    <button id="startBtn">Start camera</button>
+    <p class="legend">
+      <span class="legend__dot legend__dot--tip"></span> fingertip
+      <span class="legend__dot legend__dot--joint"></span> joint
+    </p>
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
