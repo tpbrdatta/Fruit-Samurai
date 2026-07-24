@@ -77,9 +77,10 @@ betaInput.addEventListener("input", () => {
 });
 
 // ---- Worker setup ----
-const worker = new Worker(new URL("./worker.js", import.meta.url), {
-  type: "module",
-});
+// Classic worker (no `type: "module"`) — see the comment at the top of
+// worker.js for why. main.js can still use import.meta.url here since
+// main.js itself remains a module script; only the worker's own type changed.
+const worker = new Worker(new URL("./worker.js", import.meta.url));
 
 let modelReady = false;
 
