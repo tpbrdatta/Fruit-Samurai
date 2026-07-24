@@ -3,18 +3,19 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Hand Slicer — Milestone 01: Tracking Calibration</title>
+<title>Hand Slicer — Milestone 02: Fingertip Filtering</title>
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="panel">
     <header class="panel__header">
       <p class="eyebrow">HAND-SLICER // BUILD LOG</p>
-      <h1>Milestone&nbsp;01 — Tracking Calibration</h1>
+      <h1>Milestone&nbsp;02 — Fingertip Filtering</h1>
       <p class="hint">
-        No game logic yet. This screen exists to answer one question: is the
-        detection clean enough to build a blade on top of? Check different
-        distances and lighting before moving on.
+        The red dot is the raw fingertip signal. The amber ring is that same
+        point run through a One Euro filter. Tune the two sliders below while
+        moving your hand — slow for smoothness, fast for lag — until the
+        amber ring feels attached to your hand at both speeds.
       </p>
     </header>
 
@@ -48,10 +49,31 @@
       </div>
     </section>
 
+    <section class="controls" aria-label="Filter tuning">
+      <div class="control">
+        <label for="minCutoff">
+          min cutoff <span id="minCutoffValue">1.50</span>
+        </label>
+        <input type="range" id="minCutoff" min="0.1" max="5" step="0.05" value="1.5" />
+        <span class="control__hint">lower = smoother at rest, more lag</span>
+      </div>
+      <div class="control">
+        <label for="beta">
+          beta <span id="betaValue">0.30</span>
+        </label>
+        <input type="range" id="beta" min="0" max="2" step="0.01" value="0.3" />
+        <span class="control__hint">higher = less lag when fast, more jitter</span>
+      </div>
+      <label class="checkbox">
+        <input type="checkbox" id="showRaw" checked />
+        show raw fingertip
+      </label>
+    </section>
+
     <button id="startBtn" disabled>Loading model…</button>
     <p class="legend">
-      <span class="legend__dot legend__dot--tip"></span> fingertip
-      <span class="legend__dot legend__dot--joint"></span> joint
+      <span class="legend__dot legend__dot--raw"></span> raw
+      <span class="legend__dot legend__dot--tip"></span> filtered
     </p>
   </main>
 

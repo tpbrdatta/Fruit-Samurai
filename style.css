@@ -28,7 +28,7 @@ body {
 
 .panel {
   width: 100%;
-  max-width: 700px;
+  max-width: 900px;
 }
 
 .panel__header {
@@ -138,6 +138,58 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
+.controls {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: var(--bg-panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.control {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.control label {
+  font-size: 0.78rem;
+  color: var(--text);
+  display: flex;
+  justify-content: space-between;
+}
+
+.control label span {
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+}
+
+.control input[type="range"] {
+  width: 100%;
+  accent-color: var(--teal);
+}
+
+.control__hint {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.checkbox input {
+  accent-color: var(--teal);
+}
+
 button {
   margin-top: 18px;
   width: 100%;
@@ -190,9 +242,13 @@ button:disabled {
   margin-left: 0;
 }
 
-.legend__dot--joint {
-  background: var(--teal);
+.legend__dot--raw {
+  background: #f87171;
   margin-left: 12px;
+}
+
+.legend__dot--raw:first-child {
+  margin-left: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
