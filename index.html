@@ -28,11 +28,15 @@
     <section class="readout" aria-label="Diagnostics">
       <div class="readout__item">
         <span class="readout__label">status</span>
-        <span class="readout__value" id="status">idle</span>
+        <span class="readout__value" id="status">loading model</span>
       </div>
       <div class="readout__item">
-        <span class="readout__label">fps</span>
+        <span class="readout__label">render fps</span>
         <span class="readout__value" id="fps">--</span>
+      </div>
+      <div class="readout__item">
+        <span class="readout__label">detect fps</span>
+        <span class="readout__value" id="detectFps">--</span>
       </div>
       <div class="readout__item">
         <span class="readout__label">hands</span>
@@ -44,7 +48,7 @@
       </div>
     </section>
 
-    <button id="startBtn">Start camera</button>
+    <button id="startBtn" disabled>Loading model…</button>
     <p class="legend">
       <span class="legend__dot legend__dot--tip"></span> fingertip
       <span class="legend__dot legend__dot--joint"></span> joint
